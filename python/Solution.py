@@ -2,6 +2,7 @@
 class Solution:
     def __init__(self):
         self.bestIndividual = []
+        # todo add mean over time
         self.convergence = []
         self.optimizer = ""
         self.objective_function_name = ""
