@@ -57,41 +57,41 @@ def himmelblau(input):  # -5 <= xi <= 5
 def easom(input):   # -100 <= xi <= 100
     x = input[0]
     y = input[1]
-    return -math.cos(x)*math.cos(y)*math.exp(-((x-math.pi)**+(y-math.pi)**2)))
+    return -math.cos(x)*math.cos(y)*math.exp(-((x-math.pi)**2+(y-math.pi)**2)))
 
 
-def coos_in_tray(input):
+def coos_in_tray(input):    # -10 <= xi <= 10
     x = input[0]
     y = input[1]
     value = math.sin(x)*math.sin(y)*math.exp(abs(100-(math.sqrt(x**2+y**2)/math.pi)))
     return -0.0001*(abs(value)+1)**0.1
 
 
-def eggholder(input):
+def eggholder(input):   # -512 <= xi <= 512
     x = input[0]
     y = input[1]
     return -(y+47)*math.sin(math.sqrt(abs(x/2+(y+47)))) - x*math.sin(math.sqrt(abs(x-(y+47))))
 
 
-def holder_table(input):
+def holder_table(input):    # -10 <= xi <= 10
     x = input[0]
     y = input[1]
     return -abs(math.sin(x)*math.cos(y)*math.exp(abs(1-math.sqrt(x**2+y**2)/math.pi)))
 
 
-def mc_cormick(input):
+def mc_cormick(input):      # -1.5 <= x <= 4    -3 <= y <= 4
     x = input[0]
     y = input[1]
     return math.sin(x+y)+(x-y)**2-1.5*x+2.5*y+1
 
 
-def schaffer(input):
+def schaffer(input):        # -100 <= xi <= 100
     x = input[0]
     y = input[1]
     return 0.5 + (math.sin(x**2-y**2)**2-0.5)/(1+0.0001*(x**2+y**2))**2
 
 
-def schaffer2(input):
+def schaffer2(input):       # -100 <= xi <= 100
     x = input[0]
     y = input[1]
     return 0.5 + (math.cos(math.sin(abs(x**2-y**2)))**2 - 0.5) / (1+0.0001*(x**2+y**2))**2
