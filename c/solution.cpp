@@ -1,5 +1,19 @@
-//
-// Created by alireza on 16.02.21.
-//
+#include <string>
+#include <iostream>
 
-#include "solution.h"
+using namespace std;
+
+class solution
+{
+public:
+    float bestValue;
+    string startTime;
+    string endTime;
+
+    void print(){
+        cout << startTime << endl;
+        cout << bestValue << endl;
+        cout << endTime << endl;
+    }
+
+};
