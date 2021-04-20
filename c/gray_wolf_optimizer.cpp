@@ -73,27 +73,10 @@ public:
       }
     }
 
-    int convergence_curve[max_iteration] = {};
-
-    if (enable_print)
-    {
-      cout << "GWO is optimizing '"
-           << "function_name"
-           << "'" << endl;
-    }
+    double convergence_curve[max_iteration] = {};
 
     for (int iteration_number = 0; iteration_number < max_iteration; iteration_number++)
     {
-      cout << "positions" << endl;
-      for (int i = 0; i < dimension; i++)
-      {
-        for (int j = 0; j < search_agents_number; j++)
-        {
-          cout << positions[j][i] << " ";
-        }
-        cout << "---> " << (*objective_function)(positions[i]) << endl;
-      }
-
       for (int i = 0; i < search_agents_number; i++)
       {
         //Return back the search agents that go beyond the boundaries of the search space
@@ -103,7 +86,6 @@ public:
         }
         //Calculate objective function for each search agent
         double fitness = (*objective_function)(positions[i]);
-
         //Update Alpha, Beta, and Delta
         if (fitness < alpha_score)
         {
@@ -130,9 +112,6 @@ public:
       }
       //a decreases linearly from 2 to 0
       int a = 2 - iteration_number * (2 / max_iteration);
-      cout << "alpha --> " << alpha_score << endl;
-      cout << "beta --> " << beta_score << endl;
-      cout << "delta --> " << delta_score << endl;
       //Update the Position of search agents including omegas
       for (int i = 0; i < search_agents_number; i++)
       {

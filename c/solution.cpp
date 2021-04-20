@@ -19,7 +19,8 @@ public:
     }
 
     void print()
-    {
+    {   
+        cout << "resualt" << endl;
         cout << startTime << endl;
         cout << bestValue << endl;
         cout << endTime << endl;
