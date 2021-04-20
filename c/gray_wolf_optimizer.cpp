@@ -81,10 +81,7 @@ public:
         {
           positions[i][j] = clip(positions[i][j], lower_band[j], upper_band[j]);
         }
-      }
-
-      for (int i = 0; i < search_agents_number; i++)
-      {
+        
         //Calculate objective function for each search agent
         fitnesses[i] = (*objective_function)(positions[i]);
       }
