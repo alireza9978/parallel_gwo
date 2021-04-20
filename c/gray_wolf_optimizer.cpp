@@ -70,6 +70,7 @@ public:
     }
 
     double convergence_curve[max_iteration] = {};
+    double fitnesses[search_agents_number] = {};
 
     for (int iteration_number = 0; iteration_number < max_iteration; iteration_number++)
     {
@@ -85,7 +86,13 @@ public:
       for (int i = 0; i < search_agents_number; i++)
       {
         //Calculate objective function for each search agent
-        double fitness = (*objective_function)(positions[i]);
+        fitnesses[i] = (*objective_function)(positions[i]);
+      }
+
+      double fitness;
+      for (int i = 0; i < search_agents_number; i++)
+      {
+        fitness = fitnesses[i];
         //Update Alpha, Beta, and Delta
         if (fitness < alpha_score)
         {
