@@ -34,10 +34,6 @@ private:
   }
 
 public:
-  // int (*objective_function)(int *),
-
-  //                  int max_iteration = 100,
-  //                  bool enable_print = 0
   Solution solve(double(objective_function)(double *),
                  double lower_band[],
                  double upper_band[],

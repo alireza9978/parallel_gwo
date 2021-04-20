@@ -20,7 +20,7 @@ public:
 
     void print()
     {   
-        cout << "resualt" << endl;
+        cout << "result" << endl;
         cout << startTime << endl;
         cout << bestValue << endl;
         cout << endTime << endl;
