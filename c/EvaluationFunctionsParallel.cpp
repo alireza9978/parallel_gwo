@@ -1,20 +1,34 @@
 
 #include <math.h>
 #include <bits/stdc++.h>
+#include <omp.h>
 using namespace std;
 
 #define PI 3.14159265
-#define E 2.71828182845904523536;
+#define E 2.71828182845904523536
+
+#define NUM_THREADS 4
 
 class Eval
 {
 public:
+
     double rastrigin(double input[])
     {   // -5 <= xi <= 5
         int n = sizeof(*input) / sizeof(double);
         double result = 10 * n;
-        for (int i = 0; i < n; i++){
-            result += input[i]*input[i] - 10 * cos(2 * PI * input[i]);
+        omp_set_num_threads(NUM_THREADS);
+        #pragma omp parallel
+        {
+            int id, nthrds;
+            double sum = 0;
+            id = omp_get_thread_num();
+            nthrds = omp_get_num_threads();
+            for (int i = id; i < n; i+=nthrds){
+                sum += input[i]*input[i] - 10 * cos(2 * PI * input[i]);
+            }
+            #pragma atomic
+                result += sum;
         }
         return result;
     }
@@ -32,8 +46,18 @@ public:
     { // -inf <= xi <= inf
         int n = sizeof(*input) / sizeof(double);
         double result = 0;
-        for (int i = 0; i < n; i++)
-            result += input[i] * input[i];
+        omp_set_num_threads(NUM_THREADS);
+        #pragma omp parallel
+        {
+            int id, nthrds;
+            double sum = 0;
+            id = omp_get_thread_num();
+            nthrds = omp_get_num_threads();
+            for (int i = id; i < n; i+=nthrds)
+                sum += input[i] * input[i];
+            #pragma atomic
+                result += sum;
+        }
         return result;
     }
 
@@ -41,8 +65,18 @@ public:
     { // -inf <= xi <= inf
         int n = sizeof(*input) / sizeof(input[0]);
         double result = 0;
-        for (int i = 0; i < n - 1; i++)
-            result += 100 * pow((input[i + 1] - input[i] * input[i]), 2) + pow((1 - input[i]), 2);
+        omp_set_num_threads(NUM_THREADS);
+        #pragma omp parallel
+        {
+            int id, nthrds;
+            double sum = 0;
+            id = omp_get_thread_num();
+            nthrds = omp_get_num_threads();
+            for (int i = id; i < n - 1; i+=nthrds)
+                sum += 100 * pow((input[i + 1] - input[i] * input[i]), 2) + pow((1 - input[i]), 2);
+            #pragma atomic
+                result += sum;
+        }
         return result;
     }
 
@@ -137,8 +171,17 @@ public:
     {   // -5 <= xi <= 5
         int n = sizeof(*input) / sizeof(double);
         double result = 0;
-        for (int i = 0; i < n; i++){
-            result += pow(input[i], 4) - 16 * pow(input[i], 2) + 5 * input[i];
+        omp_set_num_threads(NUM_THREADS);
+        #pragma omp parallel
+        {
+            int id, nthrds;
+            double sum = 0;
+            id = omp_get_thread_num();
+            nthrds = omp_get_num_threads();
+            for (int i = id; i < n - 1; i+=nthrds)
+                sum += pow(input[i], 4) - 16 * pow(input[i], 2) + 5 * input[i];
+            #pragma atomic
+                result += sum;
         }
         result /= 2;
         return result;
