@@ -9,9 +9,8 @@ using namespace std;
 class Eval
 {
 public:
-    double rastrigin(double input[])
+    static double rastrigin(double input[], int n)
     {   // -5 <= xi <= 5
-        int n = sizeof(*input) / sizeof(double);
         double result = 10 * n;
         for (int i = 0; i < n; i++){
             result += input[i]*input[i] - 10 * cos(2 * PI * input[i]);
@@ -19,7 +18,7 @@ public:
         return result;
     }
 
-    double ackley(double input[])
+    static double ackley(double input[])
     { // -5 <= xi <= 5
         double x = input[0];
         double y = input[1];
@@ -28,18 +27,16 @@ public:
         return -20 * exp(power1) - exp(power2) + E + 20;
     }
 
-    static double sphere(double input[])
+    static double sphere(double input[], int n)
     { // -inf <= xi <= inf
-        int n = sizeof(*input) / sizeof(double);
         double result = 0;
         for (int i = 0; i < n; i++)
             result += input[i] * input[i];
         return result;
     }
 
-    double rosenbrock(double input[])
+    static double rosenbrock(double input[], int n)
     { // -inf <= xi <= inf
-        int n = sizeof(*input) / sizeof(input[0]);
         double result = 0;
         for (int i = 0; i < n - 1; i++)
             result += 100 * pow((input[i + 1] - input[i] * input[i]), 2) + pow((1 - input[i]), 2);
@@ -133,9 +130,8 @@ public:
         return 0.5 + (pow(cos(sin(abs(x * x - y * y))), 2) - 0.5) / pow(1 + 0.0001 * (x * x + y * y), 2);
     }
 
-    double styblinski(double input[])
+    static double styblinski(double input[], int n)
     {   // -5 <= xi <= 5
-        int n = sizeof(*input) / sizeof(double);
         double result = 0;
         for (int i = 0; i < n; i++){
             result += pow(input[i], 4) - 16 * pow(input[i], 2) + 5 * input[i];

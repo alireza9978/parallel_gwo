@@ -1,19 +1,33 @@
+#include <omp.h>
 #include "gray_wolf_optimizer.cpp"
 #include "EvaluationFunctions.cpp"
+// #include "EvaluationFunctionsParallelFor.cpp"
+// #include "EvaluationFunctionsParallel.cpp"
+
 
 using namespace std;
 
-typedef double Fn(double*);
+typedef double Fn(double *, int);
 
 int main()
-{   
+{
     GrayWolf temp;
+    omp_set_num_threads(4);
     
-    double upperBand[] = {50, 50, 50, 50, 50};
-    double lowerBand[] = {-50, -50, -50, -50, -50};
-    
-    Fn *f = &Eval::sphere;
-    Solution so = temp.solve(f, lowerBand, upperBand, 5, 10, 10, true);
+    int dimention = 50000;
+
+    double upper = 5;
+    double lower = -5;
+    double upperBand[dimention] = {};
+    double lowerBand[dimention] = {};
+    for (int i = 0; i < dimention; i++)
+    {
+        upperBand[i] = upper;
+        lowerBand[i] = lower;
+    }
+
+    Fn *f = &Eval::rastrigin;
+    Solution so = temp.solve(f, lowerBand, upperBand, dimention, 10, 50, true);
     so.print();
     return 0;
 }

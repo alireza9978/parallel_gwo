@@ -34,7 +34,7 @@ private:
   }
 
 public:
-  Solution solve(double(objective_function)(double *),
+  Solution solve(double(objective_function)(double *, int),
                  double lower_band[],
                  double upper_band[],
                  int dimension,
@@ -83,7 +83,7 @@ public:
         }
         
         //Calculate objective function for each search agent
-        fitnesses[i] = (*objective_function)(positions[i]);
+        fitnesses[i] = (*objective_function)(positions[i], dimension);
       }
 
       double fitness;
