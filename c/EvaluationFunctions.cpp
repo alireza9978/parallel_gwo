@@ -1,5 +1,6 @@
 
 #include <math.h>
+#include <omp.h>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -9,11 +10,128 @@ using namespace std;
 class Eval
 {
 public:
-    static double rastrigin(double input[], int n)
-    {   // -5 <= xi <= 5
+    static double rastrigin_parallel(double input[], int n)
+    { // -5 <= xi <= 5
         double result = 10 * n;
-        for (int i = 0; i < n; i++){
-            result += input[i]*input[i] - 10 * cos(2 * PI * input[i]);
+#pragma omp parallel
+        {
+            int id, nthrds;
+            double sum = 0;
+            id = omp_get_thread_num();
+            nthrds = omp_get_num_threads();
+            for (int i = id; i < n; i += nthrds)
+            {
+                sum += input[i] * input[i] - 10 * cos(2 * PI * input[i]);
+            }
+#pragma atomic
+            result += sum;
+        }
+        return result;
+    }
+
+    static double sphere_parallel(double input[], int n)
+    { // -inf <= xi <= inf
+        double result = 0;
+#pragma omp parallel
+        {
+            int id, nthrds;
+            double sum = 0;
+            id = omp_get_thread_num();
+            nthrds = omp_get_num_threads();
+            for (int i = id; i < n; i += nthrds)
+                sum += input[i] * input[i];
+#pragma atomic
+            result += sum;
+        }
+        return result;
+    }
+
+    static double rosenbrock_parallel(double input[], int n)
+    { // -inf <= xi <= inf
+        double result = 0;
+#pragma omp parallel
+        {
+            int id, nthrds;
+            double sum = 0;
+            id = omp_get_thread_num();
+            nthrds = omp_get_num_threads();
+            for (int i = id; i < n - 1; i += nthrds)
+                sum += 100 * pow((input[i + 1] - input[i] * input[i]), 2) + pow((1 - input[i]), 2);
+#pragma atomic
+            result += sum;
+        }
+        return result;
+    }
+
+    static double styblinski_parallel(double input[], int n)
+    { // -5 <= xi <= 5
+        double result = 0;
+#pragma omp parallel
+        {
+            int id, nthrds;
+            double sum = 0;
+            id = omp_get_thread_num();
+            nthrds = omp_get_num_threads();
+            for (int i = id; i < n - 1; i += nthrds)
+                sum += pow(input[i], 4) - 16 * pow(input[i], 2) + 5 * input[i];
+#pragma atomic
+            result += sum;
+        }
+        result /= 2;
+        return result;
+    }
+
+    static double rastrigin_parallel_for(double input[], int n)
+    { // -5 <= xi <= 5
+        double result = 10 * n;
+#pragma omp parallel for reduction(+ \
+                                   : result)
+        for (int i = 0; i < n; i++)
+        {
+            result += input[i] * input[i] - 10 * cos(2 * PI * input[i]);
+        }
+        return result;
+    }
+
+    static double sphere_parallel_for(double input[], int n)
+    { // -inf <= xi <= inf
+        double result = 0;
+#pragma omp parallel for reduction(+ \
+                                   : result)
+        for (int i = 0; i < n; i++)
+            result += input[i] * input[i];
+        return result;
+    }
+
+    static double rosenbrock_parallel_for(double input[], int n)
+    { // -inf <= xi <= inf
+        double result = 0;
+#pragma omp parallel for reduction(+ \
+                                   : result)
+        for (int i = 0; i < n - 1; i++)
+            result += 100 * pow((input[i + 1] - input[i] * input[i]), 2) + pow((1 - input[i]), 2);
+        return result;
+    }
+
+    static double styblinski_parallel_for(double input[], int n)
+    { // -5 <= xi <= 5
+        double result = 0;
+#pragma omp parallel for reduction(+ \
+                                   : result)
+        for (int i = 0; i < n; i++)
+        {
+            result += pow(input[i], 4) - 16 * pow(input[i], 2) + 5 * input[i];
+        }
+        result /= 2;
+        return result;
+    }
+
+    static double rastrigin(double input[], int n)
+    { // -5 <= xi <= 5
+        double result = 10 * n;
+        for (int i = 0; i < n; i++)
+        {
+            result += input[i] * input[i] - 10 * cos(2 * PI * input[i]);
         }
         return result;
     }
@@ -131,9 +249,10 @@ public:
     }
 
     static double styblinski(double input[], int n)
-    {   // -5 <= xi <= 5
+    { // -5 <= xi <= 5
         double result = 0;
-        for (int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++)
+        {
             result += pow(input[i], 4) - 16 * pow(input[i], 2) + 5 * input[i];
         }
         result /= 2;

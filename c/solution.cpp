@@ -6,9 +6,9 @@ using namespace std;
 class Solution
 {
 public:
-    float bestValue;
-    string startTime;
-    string endTime;
+    double bestValue;
+    unsigned long startTime;
+    unsigned long endTime;
     int dimention;
     double *bestAnswers;
 
@@ -20,14 +20,12 @@ public:
 
     void print()
     {   
-        cout << "result" << endl;
-        cout << startTime << endl;
-        cout << bestValue << endl;
-        cout << endTime << endl;
-        for (int i = 0; i < dimention; i++)
-        {
-            cout << bestAnswers[i] << " ";
-        }
-        cout << endl;
+        cout << "best result: " << bestValue << endl;
+        cout << "duration: " << (endTime - startTime) << " ms" << endl;
+        // for (int i = 0; i < dimention; i++)
+        // {
+        //     cout << bestAnswers[i] << " ";
+        // }
+        // cout << endl;
     }
 };
