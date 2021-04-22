@@ -11,8 +11,8 @@ typedef double Fn(double *, int);
 int main()
 {
     GrayWolf temp;
-    omp_set_num_threads(4);
-    int dimention = 5000;
+    omp_set_num_threads(8);
+    int dimention = 500;
     int searchAgentNumber = 20;
     int iteraton = 100;
 

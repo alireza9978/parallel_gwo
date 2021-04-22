@@ -207,7 +207,7 @@ public:
     //Initialize the positions of search agents
 
     double positions[search_agents_number][dimension] = {};
-#pragma omp prallel
+#pragma omp parallel
     {
       int id, nthrds;
       id = omp_get_thread_num();
@@ -226,7 +226,7 @@ public:
 
     for (int iteration_number = 0; iteration_number < max_iteration; iteration_number++)
     {
-#pragma omp prallel
+#pragma omp parallel
       {
         int id, nthrds;
         id = omp_get_thread_num();
@@ -275,7 +275,7 @@ public:
       //a decreases linearly from 2 to 0
       int a = 2 - iteration_number * (2 / max_iteration);
 
-#pragma omp prallel
+#pragma omp parallel
       {
         int id, nthrds;
         id = omp_get_thread_num();
@@ -372,7 +372,7 @@ public:
     //Initialize the positions of search agents
 
     double positions[search_agents_number][dimension] = {};
-#pragma omp prallel for collapses(2)
+#pragma omp parallel for collapse(2)
     for (int i = 0; i < dimension; i++)
     {
       for (int j = 0; j < search_agents_number; j++)
@@ -386,7 +386,7 @@ public:
 
     for (int iteration_number = 0; iteration_number < max_iteration; iteration_number++)
     {
-#pragma omp prallel for collapses(2)
+#pragma omp parallel for collapse(2)
       for (int i = 0; i < search_agents_number; i++)
       {
         //Return back the search agents that go beyond the boundaries of the search space
@@ -434,7 +434,7 @@ public:
       int a = 2 - iteration_number * (2 / max_iteration);
 
 //Update the Position of search agents including omegas
-#pragma omp prallel for collapses(2)
+#pragma omp parallel for collapse(2)
       for (int i = 0; i < search_agents_number; i++)
       {
         for (int j = 0; j < dimension; j++)
