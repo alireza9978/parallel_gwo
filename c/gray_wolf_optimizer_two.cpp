@@ -54,7 +54,7 @@ public:
     double beta_pos[dimension];
     double beta_score = std::numeric_limits<double>::infinity();
 
-    double delta_pos[dimension] = {};
+    double delta_pos[dimension] = {0};
     double delta_score = std::numeric_limits<double>::infinity();
 
     //Initialize the positions of search agents
@@ -69,8 +69,8 @@ public:
       }
     }
 
-    double convergence_curve[max_iteration] = {};
-    double fitnesses[search_agents_number] = {};
+    double convergence_curve[max_iteration] = {0};
+    double fitnesses[search_agents_number] = {0};
 
     for (int iteration_number = 0; iteration_number < max_iteration; iteration_number++)
     {
@@ -201,7 +201,7 @@ public:
     double beta_pos[dimension];
     double beta_score = std::numeric_limits<double>::infinity();
 
-    double delta_pos[dimension] = {};
+    double delta_pos[dimension] = {0};
     double delta_score = std::numeric_limits<double>::infinity();
 
     //Initialize the positions of search agents
@@ -221,8 +221,8 @@ public:
       }
     }
 
-    double convergence_curve[max_iteration] = {};
-    double fitnesses[search_agents_number] = {};
+    double convergence_curve[max_iteration] = {0};
+    double fitnesses[search_agents_number] = {0};
 
     for (int iteration_number = 0; iteration_number < max_iteration; iteration_number++)
     {
@@ -365,12 +365,12 @@ public:
     double beta_pos[dimension];
     double beta_score = std::numeric_limits<double>::infinity();
 
-    double delta_pos[dimension] = {};
+    double delta_pos[dimension] = {0};
     double delta_score = std::numeric_limits<double>::infinity();
 
     //Initialize the positions of search agents
 
-    double positions[search_agents_number][dimension] = {};
+    double positions[search_agents_number][dimension] = {0};
 #pragma omp parallel for collapse(2)
     for (int i = 0; i < dimension; i++)
     {
@@ -380,8 +380,8 @@ public:
       }
     }
 
-    double convergence_curve[max_iteration] = {};
-    double fitnesses[search_agents_number] = {};
+    double convergence_curve[max_iteration] = {0};
+    double fitnesses[search_agents_number] = {0};
 
     for (int iteration_number = 0; iteration_number < max_iteration; iteration_number++)
     {
@@ -518,12 +518,12 @@ public:
     double beta_pos[dimension];
     double beta_score = std::numeric_limits<double>::infinity();
 
-    double delta_pos[dimension] = {};
+    double delta_pos[dimension] = {0};
     double delta_score = std::numeric_limits<double>::infinity();
 
     //Initialize the positions of search agents
 
-    double positions[search_agents_number][dimension] = {};
+    double positions[search_agents_number][dimension] = {0};
 #pragma omp parallel
     {
       int id, nthrds;
@@ -538,8 +538,8 @@ public:
       }
     }
 
-    double convergence_curve[max_iteration] = {};
-    double fitnesses[search_agents_number] = {};
+    double convergence_curve[max_iteration] = {0};
+    double fitnesses[search_agents_number] = {0};
 
     for (int iteration_number = 0; iteration_number < max_iteration; iteration_number++)
     {
@@ -682,12 +682,12 @@ public:
     double beta_pos[dimension];
     double beta_score = std::numeric_limits<double>::infinity();
 
-    double delta_pos[dimension] = {};
+    double delta_pos[dimension] = {0};
     double delta_score = std::numeric_limits<double>::infinity();
 
     //Initialize the positions of search agents
 
-    double positions[search_agents_number][dimension] = {};
+    double positions[search_agents_number][dimension] = {0};
 #pragma omp parallel for collapse(2)
     for (int i = 0; i < dimension; i++)
     {
@@ -697,8 +697,8 @@ public:
       }
     }
 
-    double convergence_curve[max_iteration] = {};
-    double fitnesses[search_agents_number] = {};
+    double convergence_curve[max_iteration] = {0};
+    double fitnesses[search_agents_number] = {0};
 
     for (int iteration_number = 0; iteration_number < max_iteration; iteration_number++)
     {
@@ -835,7 +835,7 @@ public:
     double beta_pos[dimension];
     double beta_score = std::numeric_limits<double>::infinity();
 
-    double delta_pos[dimension] = {};
+    double delta_pos[dimension] = {0};
     double delta_score = std::numeric_limits<double>::infinity();
 
     //Initialize the positions of search agents
@@ -850,8 +850,8 @@ public:
       }
     }
 
-    double convergence_curve[max_iteration] = {};
-    double fitnesses[search_agents_number] = {};
+    double convergence_curve[max_iteration] = {0};
+    double fitnesses[search_agents_number] = {0};
 
     for (int iteration_number = 0; iteration_number < max_iteration; iteration_number++)
     {
@@ -982,7 +982,7 @@ public:
     double beta_pos[dimension];
     double beta_score = std::numeric_limits<double>::infinity();
 
-    double delta_pos[dimension] = {};
+    double delta_pos[dimension] = {0};
     double delta_score = std::numeric_limits<double>::infinity();
 
     //Initialize the positions of search agents
@@ -997,8 +997,8 @@ public:
       }
     }
 
-    double convergence_curve[max_iteration] = {};
-    double fitnesses[search_agents_number] = {};
+    double convergence_curve[max_iteration] = {0};
+    double fitnesses[search_agents_number] = {0};
 
     for (int iteration_number = 0; iteration_number < max_iteration; iteration_number++)
     {
