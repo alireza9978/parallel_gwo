@@ -1,6 +1,5 @@
 #include <omp.h>
-#include "gray_wolf_optimizer.cpp"
-#include "EvaluationFunctions.cpp"
+#include "gray_wolf_optimizer_two.cpp"
 #include <chrono>
 #include <iostream>
 
@@ -10,11 +9,11 @@ typedef double Fn(double *, int);
 
 int main()
 {
-    GrayWolf temp;
-    omp_set_num_threads(8);
-    int dimention = 500;
-    int searchAgentNumber = 20;
-    int iteraton = 100;
+    GrayWolfTwo temp_two;
+    omp_set_num_threads(2);
+    int dimention = 10000;
+    int searchAgentNumber = 100;
+    int iteraton = 10;
 
     double upper = 4;
     double lower = -4;
@@ -28,37 +27,15 @@ int main()
 
     cout << "----------normal-----------" << endl;
     Fn *f = &Eval::rastrigin;
-    Solution so = temp.solve(f, lowerBand, upperBand, dimention, searchAgentNumber, iteraton, false);
+    Solution so = temp_two.solve(lowerBand, upperBand, dimention, searchAgentNumber, iteraton, false);
     so.print();
     cout << endl;
-    cout << "----------parallel algorithm-----------" << endl;
-    f = &Eval::rastrigin;
-    so = temp.solve_parallel(f, lowerBand, upperBand, dimention, searchAgentNumber, iteraton, false);
+    cout << "----------parallel_for_objective-----------" << endl;
+    so = temp_two.solve_normal_parallel_for_objective(lowerBand, upperBand, dimention, searchAgentNumber, iteraton, false);
     so.print();
     cout << endl;
-    cout << "----------parallel objective-----------" << endl;
-    f = &Eval::rastrigin_parallel;
-    so = temp.solve(f, lowerBand, upperBand, dimention, searchAgentNumber, iteraton, false);
-    so.print();
-    cout << endl;
-    cout << "----------parallel both-----------" << endl;
-    f = &Eval::rastrigin_parallel;
-    so = temp.solve_parallel(f, lowerBand, upperBand, dimention, searchAgentNumber, iteraton, false);
-    so.print();
-    cout << endl;
-    cout << "----------parallel for algorithm-----------" << endl;
-    f = &Eval::rastrigin;
-    so = temp.solve_parallel_for(f, lowerBand, upperBand, dimention, searchAgentNumber, iteraton, false);
-    so.print();
-    cout << endl;
-    cout << "----------parallel for objective-----------" << endl;
-    f = &Eval::rastrigin_parallel_for;
-    so = temp.solve(f, lowerBand, upperBand, dimention, searchAgentNumber, iteraton, false);
-    so.print();
-    cout << endl;
-    cout << "----------parallel for both-----------" << endl;
-    f = &Eval::rastrigin_parallel_for;
-    so = temp.solve_parallel_for(f, lowerBand, upperBand, dimention, searchAgentNumber, iteraton, false);
+    cout << "----------parallel_objective-----------" << endl;
+    so = temp_two.solve_normal_parallel_objective(lowerBand, upperBand, dimention, searchAgentNumber, iteraton, false);
     so.print();
     cout << endl;    
     
