@@ -59,10 +59,11 @@ public:
 
     //Initialize the positions of search agents
 
-    double positions[search_agents_number][dimension] = {};
-    for (int i = 0; i < dimension; i++)
+    double **positions = new double*[search_agents_number];
+    for (int j = 0; j < search_agents_number; j++)
     {
-      for (int j = 0; j < search_agents_number; j++)
+      positions[j] = new double[dimension];
+      for (int i = 0; i < dimension; i++)
       {
         positions[j][i] = ((rand() / ((double)RAND_MAX)) * (upper_band[i] - lower_band[i]) + lower_band[i]);
       }
@@ -498,4 +499,5 @@ public:
     my_solution.bestAnswers = convergence_curve;
     return my_solution;
   }
+
 };
